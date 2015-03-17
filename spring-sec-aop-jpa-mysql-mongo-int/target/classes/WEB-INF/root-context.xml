@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+    <import resource="config/jpa-app-context.xml" />
+    <import resource="config/cache-context.xml" />
+    <import resource="config/datasource-tx-jpa.xml"/>
+    <import resource="config/datasource-tx-nosql.xml" />
+    <import resource="config/aop-context.xml" />
+    <!-- <import resource="config/security-context.xml" /> -->
+   	
+   	<!-- <import resource="classpath*:spring/app.xml" />  -->
+	
+ 	<bean	class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>classpath:app.properties</value>
+		</property>
+	</bean>	
+
+	<!-- Integration configuration -->
+	<bean id="messageSender" class="org.springframework.ws.transport.http.HttpComponentsMessageSender">
+		<property name="connectionTimeout" value="${integration.connectionTimeout}"/>
+		<property  name="readTimeout" value="${integration.readTimeout}"/>
+	</bean>	
+	    
+    
+    
+</beans>
